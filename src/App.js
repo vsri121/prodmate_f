@@ -1,10 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import './App.css';
-import Pomodoro from './components/Pomodoro';
-import CalendarComponent from './components/CalendarComponent.js';
 
-function App() {
+unction App() {
   return (
     <Router>
       <div className="App">
@@ -24,6 +22,7 @@ function App() {
               element={
                 <>
                   <Pomodoro />
+                  <ToDoList/>
                   
                 </>
               }
