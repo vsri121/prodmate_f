@@ -1,8 +1,11 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import './App.css';
+import Pomodoro from './components/Pomodoro.jsx';
+import ToDoList from './components/todolist.jsx';
+import CalendarComponent from './components/CalendarComponent.js';
 
-unction App() {
+function App() {
   return (
     <Router>
       <div className="App">
@@ -14,7 +17,6 @@ unction App() {
           </nav>
         </header>
 
-        {/* Main content area: show both on home, or separate routes */}
         <main className="main-content">
           <Routes>
             <Route
@@ -22,8 +24,7 @@ unction App() {
               element={
                 <>
                   <Pomodoro />
-                  <ToDoList/>
-                  
+                  <ToDoList />
                 </>
               }
             />
