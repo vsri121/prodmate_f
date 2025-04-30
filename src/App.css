@@ -1,38 +1,59 @@
-.App {
-  text-align: center;
+/* App.css - Enhanced Dark Productivity Theme */
+:root {
+  --bg-page: #121212;
+  --bg-card: #1e1e1e;
+  --bg-header: #000000;
+  --text-primary: #e0e0e0;
+  --text-secondary: #9e9e9e;
+  --accent-green: #66bb6a;
+  --accent-red: #ef5350;
+  --accent-blue: #42a5f5;
+  --accent-yellow: #ffa726;
+  --shadow: rgba(0, 0, 0, 0.6);
+  --border-radius: 0.5rem;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+/* Global Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body, html, #root { height: 100%; font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; background: var(--bg-page); color: var(--text-primary); }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
+.App { display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+/* Header */
+.App-header { width: 100%; background: var(--bg-header); padding: 1rem 0; text-align: center; box-shadow: 0 2px 8px var(--shadow); position: sticky; top: 0; z-index: 10; }
+.App-header h1 { color: var(--accent-blue); font-size: 2.75rem; }
+.App-header nav { margin-top: 0.5rem; }
+.App-header nav a { color: var(--text-secondary); text-decoration: none; margin: 0 1rem; font-size: 1rem; transition: color 0.2s, transform 0.2s; }
+.App-header nav a:hover { color: var(--accent-green); transform: translateY(-2px); }
 
-.App-link {
-  color: #61dafb;
-}
+/* Main content grid */
+.main-content { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; width: 100%; max-width: 1000px; padding: 2rem 1rem; }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+/* Card styling */
+.PomodoroTimer, .calendar-container { background: var(--bg-card); border-radius: var(--border-radius); box-shadow: 0 4px 16px var(--shadow); padding: 2rem; transition: transform 0.2s, box-shadow 0.2s; }
+.PomodoroTimer:hover, .calendar-container:hover { transform: translateY(-4px); box-shadow: 0 6px 20px var(--shadow); }
+
+/* Pomodoro Timer */
+.PomodoroTimer h3 { color: var(--accent-yellow); font-size: 2rem; margin-bottom: 1rem; }
+.PomodoroTimer .timer-display { font-size: 4rem; font-family: 'Courier New', monospace; color: var(--accent-red); margin-bottom: 1.5rem; }
+.PomodoroTimer .btn-group { display: flex; gap: 1rem; }
+.PomodoroTimer button { flex: 1; padding: 0.75rem 1rem; border: none; border-radius: var(--border-radius); font-size: 1rem; cursor: pointer; color: #fff; transition: background 0.2s, transform 0.1s; }
+.PomodoroTimer button.start { background: var(--accent-green); }
+.PomodoroTimer button.pause { background: var(--accent-yellow); }
+.PomodoroTimer button.reset { background: var(--accent-red); }
+.PomodoroTimer button:hover { transform: translateY(-2px); opacity: 0.9; }
+
+/* Calendar */
+.calendar-container h3 { color: var(--accent-blue); font-size: 2rem; margin-bottom: 1rem; }
+.react-calendar { width: 100%; border: none; background: var(--bg-card); border-radius: var(--border-radius); box-shadow: 0 4px 16px var(--shadow); }
+.react-calendar__navigation button { background: var(--bg-header); border: none; color: var(--text-secondary); padding: 0.75rem; margin: 0.2rem; border-radius: var(--border-radius); cursor: pointer; transition: background 0.2s; }
+.react-calendar__navigation button:hover { background: var(--accent-blue); color: #fff; }
+.react-calendar__month-view__weekdays { color: var(--text-secondary); font-size: 0.875rem; }
+.react-calendar__tile { background: var(--bg-card); color: var(--text-primary); border-radius: var(--border-radius) !important; padding: 0.75rem !important; transition: background 0.2s, color 0.2s; }
+.react-calendar__tile:hover { background: var(--accent-green) !important; color: #000 !important; }
+.react-calendar__tile--now { background: var(--accent-red) !important; color: #fff !important; }
+.react-calendar__tile--active { background: var(--accent-blue) !important; color: #fff !important; }
+
+/* Responsive */
+@media (max-width: 768px) { .main-content { grid-template-columns: 1fr; padding: 1rem; } }
+
