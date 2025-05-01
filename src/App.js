@@ -1,9 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import './App.css';
+import ToDoList from "./components/todolist.jsx";
 import Pomodoro from './components/Pomodoro.jsx';
-import ToDoList from './components/todolist.jsx';
-import CalendarComponent from './components/CalendarComponent.js';
+import CalendarComponent from './components/CalendarComponent';
+
 
 function App() {
   return (

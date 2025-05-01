@@ -3,39 +3,390 @@
   --bg-page: #121212;
   --bg-card: #1e1e1e;
   --bg-header: #000000;
+  --bg-input: #2a2a2a;
   --text-primary: #e0e0e0;
   --text-secondary: #9e9e9e;
+  --text-tertiary: #6d6d6d;
   --accent-green: #66bb6a;
   --accent-red: #ef5350;
   --accent-blue: #42a5f5;
   --accent-yellow: #ffa726;
   --shadow: rgba(0, 0, 0, 0.6);
   --border-radius: 0.5rem;
+  --transition: all 0.2s ease;
 }
 
 /* Global Reset */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body, html, #root { height: 100%; font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; background: var(--bg-page); color: var(--text-primary); }
+* { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
+}
 
-.App { display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+body, html, #root { 
+  height: 100%; 
+  font-family: 'Segoe UI', Tahoma, Verdana, sans-serif; 
+  background: var(--bg-page); 
+  color: var(--text-primary); 
+  line-height: 1.6;
+}
+
+.App { 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  min-height: 100vh; 
+  padding: 0 1rem;
+}
 
 /* Header */
-.App-header { width: 100%; background: var(--bg-header); padding: 1rem 0; text-align: center; box-shadow: 0 2px 8px var(--shadow); position: sticky; top: 0; z-index: 10; }
-.App-header h1 { color: var(--accent-blue); font-size: 2.75rem; }
-.App-header nav { margin-top: 0.5rem; }
-.App-header nav a { color: var(--text-secondary); text-decoration: none; margin: 0 1rem; font-size: 1rem; transition: color 0.2s, transform 0.2s; }
-.App-header nav a:hover { color: var(--accent-green); transform: translateY(-2px); }
+.App-header { 
+  width: 100%; 
+  background: var(--bg-header); 
+  padding: 1rem 0; 
+  text-align: center; 
+  box-shadow: 0 2px 8px var(--shadow); 
+  position: sticky; 
+  top: 0; 
+  z-index: 10; 
+  margin-bottom: 2rem;
+}
+
+.App-header h1 { 
+  color: var(--accent-blue); 
+  font-size: 2.25rem; 
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.App-header nav { 
+  margin-top: 0.75rem; 
+}
+
+.App-header nav a { 
+  color: var(--text-secondary); 
+  text-decoration: none; 
+  margin: 0 1rem; 
+  font-size: 1rem; 
+  transition: var(--transition); 
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--border-radius);
+}
+
+.App-header nav a:hover { 
+  color: var(--accent-green); 
+  background: rgba(255, 255, 255, 0.05);
+}
 
 /* Main content grid */
-.main-content { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; width: 100%; max-width: 1000px; padding: 2rem 1rem; }
+.main-content { 
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  gap: 2rem; 
+  width: 100%; 
+  max-width: 1000px; 
+  padding: 0 1rem 2rem;
+}
 
 /* Card styling */
-.PomodoroTimer, .calendar-container { background: var(--bg-card); border-radius: var(--border-radius); box-shadow: 0 4px 16px var(--shadow); padding: 2rem; transition: transform 0.2s, box-shadow 0.2s; }
-.PomodoroTimer:hover, .calendar-container:hover { transform: translateY(-4px); box-shadow: 0 6px 20px var(--shadow); }
+.PomodoroTimer, .calendar-container, .todo-container { 
+  background: var(--bg-card); 
+  border-radius: var(--border-radius); 
+  box-shadow: 0 4px 16px var(--shadow); 
+  padding: 1.5rem; 
+  transition: var(--transition);
+}
+
+.PomodoroTimer:hover, .calendar-container:hover, .todo-container:hover { 
+  transform: translateY(-4px); 
+  box-shadow: 0 6px 20px var(--shadow); 
+}
 
 
+/* Pomodoro Timer - Premium Redesign */
+.PomodoroTimer {
+  background: var(--bg-card);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  padding: 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.PomodoroTimer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-red), var(--accent-yellow));
+}
+
+.PomodoroTimer:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+.PomodoroTimer h3 {
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.PomodoroTimer h3::before {
+  content: '⏱️';
+  font-size: 1.25rem;
+}
+
+.timer-display-container {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.PomodoroTimer .timer-display {
+  font-size: 4.5rem;
+  font-family: 'Roboto Mono', monospace;
+  color: var(--text-primary);
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: -2px;
+  position: relative;
+  z-index: 2;
+}
+
+.timer-progress {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  background: conic-gradient(var(--accent-red) 0%, transparent 0%);
+  z-index: 1;
+  opacity: 0.1;
+  transition: background 1s linear;
+}
+
+.PomodoroTimer .btn-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.PomodoroTimer button {
+  padding: 1rem;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  cursor: pointer;
+  color: white;
+  transition: all 0.2s ease;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.PomodoroTimer button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(255, 255, 255, 0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.PomodoroTimer button:hover::after {
+  opacity: 1;
+}
+
+.PomodoroTimer button.start {
+  background: var(--accent-green);
+  grid-column: span 2;
+}
+
+.PomodoroTimer button.pause {
+  background: var(--accent-yellow);
+  color: #333;
+}
+
+.PomodoroTimer button.reset {
+  background: var(--accent-red);
+  grid-column: span 2;
+}
+
+.PomodoroTimer button.ticket {
+  background: var(--accent-blue);
+}
+
+.PomodoroTimer button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.PomodoroTimer button:active {
+  transform: translateY(0);
+}
+
+/* Timer states */
+.PomodoroTimer.active .timer-display {
+  color: var(--accent-red);
+  text-shadow: 0 0 10px rgba(239, 83, 80, 0.3);
+}
+
+.PomodoroTimer.break .timer-display {
+  color: var(--accent-green);
+  text-shadow: 0 0 10px rgba(102, 187, 106, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .PomodoroTimer {
+    padding: 1.5rem;
+  }
+  
+  .PomodoroTimer .timer-display {
+    font-size: 3.5rem;
+  }
+  
+  .PomodoroTimer .btn-group {
+    grid-template-columns: 1fr;
+  }
+  
+  .PomodoroTimer button.start {
+    grid-column: span 1;
+  }
+}
 
 
-/* Responsive */
-@media (max-width: 768px) { .main-content { grid-template-columns: 1fr; padding: 1rem; } }
+/* To-Do List - Matching Pomodoro Style */
+.todo-container {
+  background: var(--bg-card);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 16px var(--shadow);
+  padding: 1.5rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border-top: 3px solid var(--accent-blue);
+}
 
+.todo-container:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px var(--shadow);
+}
+
+.todo-container h3 {
+  color: var(--accent-blue);
+  font-size: 1.5rem;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.todo-input-container {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.todo-input-container input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: var(--border-radius);
+  background: var(--bg-input);
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.todo-input-container input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--accent-blue);
+}
+
+.todo-input-container button {
+  padding: 0.75rem 1.5rem;
+  background: var(--accent-blue);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.todo-input-container button:hover {
+  background: var(--accent-green);
+  transform: translateY(-2px);
+}
+
+.todo-list {
+  list-style: none;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  background: var(--bg-input);
+  border-radius: var(--border-radius);
+  transition: all 0.2s;
+}
+
+.todo-item:hover {
+  background: #282828;
+}
+
+.task-text {
+  flex: 1;
+  margin-left: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.delete-btn:hover {
+  color: var(--accent-red);
+  background: rgba(239, 83, 80, 0.1);
+}
+
+.todo-empty {
+  color: var(--text-tertiary);
+  text-align: center;
+  padding: 1rem;
+  font-style: italic;
+}
+
+/* Animation for task entry */
+@keyframes taskEntry {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.todo-item {
+  animation: taskEntry 0.3s ease-out;
+} 
